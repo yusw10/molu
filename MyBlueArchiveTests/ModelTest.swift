@@ -16,20 +16,39 @@ final class ModelTest: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    //MARK: - Model Characters  test
+    
+    func test_Characters_JSON_to_Model() throws {
+        guard let jsonData = load(fileName: "mock_Characters", extensionType: "json") else {
+            return
+        }
+        let characters = try JSONDecoder().decode(Charactesrs.self, from: jsonData)
+        XCTAssert(characters.dataAllPage == 119)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func test_Characters_Model_to_JSON() throws {
+        
+    }
+    
+    //MARK: - Utility
+    func load(fileName: String, extensionType: String) -> Data? {
+        // 3. 파일 위치
+        guard let fileLocation = Bundle.main.url(
+            forResource: fileName,
+            withExtension: extensionType
+        ) else { return nil }
+        
+        
+        do {
+            // 4. 해당 위치의 파일을 Data로 초기화하기
+            let data = try Data(contentsOf: fileLocation)
+            return data
+        } catch {
+            // 5. 잘못된 위치나 불가능한 파일 처리 (오늘은 따로 안하기)
+            return nil
         }
     }
-
 }
+
+
