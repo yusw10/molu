@@ -23,7 +23,7 @@ final class ModelTest: XCTestCase {
         guard let jsonData = load(fileName: "mock_Characters", extensionType: "json") else {
             return
         }
-        let characters = try JSONDecoder().decode(Charactesrs.self, from: jsonData)
+        let characters = try JSONDecoder().decode(Students.self, from: jsonData)
         XCTAssert(characters.dataAllPage == 119)
     }
     

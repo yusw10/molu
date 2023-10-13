@@ -7,21 +7,15 @@
 
 import Foundation
 
-// MARK: - Charactesrs
-struct Charactesrs: Codable {
+// MARK: - Characters
+struct Students: Codable {
     let message: String
     let dataAllPage: Int
-    let characterDetail: [Character] //TODO: 원래는 data 로 오는데 이거 임의로 바꿔도 되는지 모르겠음.
-    
-    enum Codingkeys: String, CodingKey {
-        case message 
-        case dataAllPage
-        case characterDetail = "data"
-    }
+    let data: [StudentDetail]
 }
 
 // MARK: - Datum
-struct Character: Codable {
+struct StudentDetail: Codable {
     let id, name, school, birthday: String
     let photoURL: String
     let image: String
@@ -41,3 +35,4 @@ enum DamageType: String, Codable {
     case mystic = "Mystic"
     case penetration = "Penetration"
 }
+
