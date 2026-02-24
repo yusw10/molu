@@ -19,6 +19,7 @@
 
 ## 기능 명세
 - `/Users/hansuk/Documents/MobileWedding/docs/specs/spec-guestbook.md`
+- `/Users/hansuk/Documents/MobileWedding/docs/specs/spec-admin-page.md`
 - `/Users/hansuk/Documents/MobileWedding/docs/templates/spec-template.md`
 
 ## 품질 검수

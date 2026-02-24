@@ -20,6 +20,10 @@ cp apps/api/.env.example apps/api/.env
 
 `apps/api/.env`에 Supabase 연결 정보를 입력합니다.
 
+Supabase SQL Editor에서 아래 파일을 순서대로 실행합니다.
+- `/Users/hansuk/Documents/MobileWedding/supabase/sql/001_guestbook_entries.sql`
+- `/Users/hansuk/Documents/MobileWedding/supabase/sql/002_site_settings.sql`
+
 ## 4. 프론트 실행
 ```bash
 cd apps/web

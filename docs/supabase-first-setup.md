@@ -17,13 +17,14 @@ Supabase를 처음 사용하는 기준으로 작성했습니다.
    - Region: 주요 사용자와 가까운 리전
 5. `Create new project` 클릭 후 생성 완료까지 대기
 
-## 2) 테이블 생성 (guestbook)
+## 2) 테이블 생성 (필수)
 1. `SQL Editor` 이동
 2. `New query` 생성
-3. 아래 파일 SQL 붙여넣기
+3. 아래 파일 SQL을 순서대로 실행
    - `/Users/hansuk/Documents/MobileWedding/supabase/sql/001_guestbook_entries.sql`
-4. `Run` 실행
-5. `Table Editor`에서 `guestbook_entries` 생성 확인
+   - `/Users/hansuk/Documents/MobileWedding/supabase/sql/002_site_settings.sql`
+4. 각 SQL마다 `Run` 실행
+5. `Table Editor`에서 `guestbook_entries`, `site_settings` 생성 확인
 
 ## 3) Spring용 DB 연결 정보 확인
 1. `Project Settings -> Database` 이동
