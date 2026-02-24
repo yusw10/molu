@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+dist/
+
+# Java
+.gradle/
+build/
+
+# Env
+.env
+apps/web/.env
+apps/api/.env
