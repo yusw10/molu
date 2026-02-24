@@ -1,14 +1,14 @@
-# Changelog
+# 변경 이력
 
 ## 2026-02-23
-- Initialized documentation-first project structure.
-- Added Vue + Spring + Supabase architecture docs.
-- Added theme color documentation and CSS tokens.
-- Added guestbook spec, SQL schema, and starter app scaffolds.
-- Added first-time Supabase setup guide and GitHub push guide.
+- 문서 우선 프로젝트 구조 초기화
+- Vue + Spring + Supabase 아키텍처 문서 추가
+- 색상 테마 문서 및 CSS 토큰 적용
+- 방명록 명세, SQL 스키마, 앱 스캐폴드 추가
+- Supabase 최초 설정 가이드 및 GitHub 푸시 가이드 추가
 
 ## 2026-02-24
-- Added backend tests for guestbook controller and repository.
-- Added non-developer local run guide.
-- Switched API run/build docs to Gradle Wrapper flow.
-- Added fixed git flow policy and reusable spec/issue/PR templates.
+- 방명록 컨트롤러/리포지토리 백엔드 테스트 추가
+- 비개발자용 로컬 실행 가이드 추가
+- API 실행/빌드 문서를 Gradle Wrapper 기준으로 정리
+- 고정 브랜치 정책 및 PR/이슈/명세 템플릿 추가

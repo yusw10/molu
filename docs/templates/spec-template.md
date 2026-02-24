@@ -1,26 +1,26 @@
-# Spec Template
+# 명세 템플릿
 
-## 1. Purpose
+## 1. 목적
 
-## 2. User Story
+## 2. 사용자 시나리오
 
-## 3. Requirements
-- Functional:
-- Non-functional:
+## 3. 요구사항
+- 기능 요구사항:
+- 비기능 요구사항:
 
-## 4. API / Data Changes
-- Endpoint changes:
-- DB changes:
+## 4. API / 데이터 변경
+- 엔드포인트 변경:
+- DB 변경:
 
-## 5. Edge Cases
+## 5. 예외 케이스
 
-## 6. Test Plan
-- Unit tests:
-- Integration tests:
-- Manual checks:
+## 6. 테스트 계획
+- 단위 테스트:
+- 통합 테스트:
+- 수동 점검:
 
-## 7. Definition of Done
-- [ ] Code implemented
-- [ ] Tests added/updated
-- [ ] Docs updated
-- [ ] Verified on mobile width
+## 7. 완료 기준 (DoD)
+- [ ] 코드 구현 완료
+- [ ] 테스트 추가/수정 완료
+- [ ] 문서 업데이트 완료
+- [ ] 모바일 폭에서 동작 확인

@@ -1,19 +1,19 @@
-# ADR-001: Stack Choice
+# ADR-001: 기술 스택 선택
 
-## Status
-Accepted
+## 상태
+채택됨
 
-## Context
-Project owner is more familiar with Vue and Spring than with React/Next.
+## 배경
+프로젝트 오너가 React/Next보다 Vue와 Spring에 익숙합니다.
 
-## Decision
-Use Vue 3 + Spring Boot + Supabase Postgres.
+## 결정
+Vue 3 + Spring Boot + Supabase Postgres를 사용합니다.
 
-## Consequences
-- Pros
-  - Faster review and easier collaboration.
-  - Better chance to maintain project after launch.
-  - Learn Supabase while keeping a familiar backend.
-- Cons
-  - Slightly more setup than frontend-only stack.
-  - Requires Java runtime in development.
+## 영향
+- 장점
+  - 리뷰/수정 속도가 빠름
+  - 런칭 후 유지보수 가능성 높음
+  - Supabase 학습 효과 확보
+- 단점
+  - 프론트 단독 스택보다 초기 설정이 다소 많음
+  - Java 런타임 필요

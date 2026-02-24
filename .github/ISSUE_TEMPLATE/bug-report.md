@@ -1,30 +1,30 @@
 ---
-name: Bug Report
+name: 버그 제보
 about: 버그 리포트 템플릿
 labels: [bug]
 ---
 
-## Bug Summary
+## 버그 요약
 <!-- 어떤 문제가 발생했는지 간단히 -->
 
-## Steps to Reproduce
+## 재현 절차
 1. 
 2. 
 3. 
 
-## Expected Result
+## 기대 결과
 
-## Actual Result
+## 실제 결과
 
-## Environment
-- Branch:
-- Device/OS:
-- Browser:
+## 실행 환경
+- 브랜치:
+- 기기/OS:
+- 브라우저:
 
-## Logs / Screenshots
+## 로그 / 스크린샷
 
-## Suspected Area
-- [ ] Frontend
-- [ ] Backend
-- [ ] Database
-- [ ] Infra/Env
+## 의심 영역
+- [ ] 프론트엔드
+- [ ] 백엔드
+- [ ] 데이터베이스
+- [ ] 인프라/환경

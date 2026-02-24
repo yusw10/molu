@@ -1,27 +1,27 @@
-# Spec: Guestbook v1
+# 명세: 방명록 v1
 
-## Purpose
-Allow guests to leave short congratulation messages.
+## 목적
+하객이 모바일에서 축하 메시지를 남길 수 있도록 합니다.
 
-## User Story
-As a guest, I can write my name and message and submit it from mobile quickly.
+## 사용자 시나리오
+하객은 이름과 메시지를 입력해 빠르게 등록할 수 있어야 합니다.
 
-## Inputs
-- Name
-- Message
-- Optional attending toggle
+## 입력
+- 이름
+- 메시지
+- 참석 여부(선택)
 
-## Outputs
-- Success toast
-- New entry appears in the list sorted by newest
+## 출력
+- 등록 성공 안내 문구
+- 최신순 목록에 새 항목 표시
 
-## Edge Cases
-- Empty values should be rejected.
-- Too long values should be rejected.
-- API failure should show retry message.
+## 예외 케이스
+- 빈 값은 거부해야 함
+- 길이 초과는 거부해야 함
+- API 실패 시 재시도 안내 필요
 
-## Definition of Done
-- Form works on mobile.
-- Validation on frontend and backend.
-- SQL schema applied.
-- Docs updated (`content-model`, `changelog`, `runbook`).
+## 완료 기준 (DoD)
+- 모바일에서 폼이 정상 동작
+- 프론트/백엔드 모두 검증 적용
+- SQL 스키마 반영 완료
+- 관련 문서 업데이트 완료 (`content-model`, `changelog`, `runbook`)

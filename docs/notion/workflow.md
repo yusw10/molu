@@ -1,13 +1,13 @@
-# Notion x Git Workflow
+# Notion x Git 작업 흐름
 
-1. Write or update requirement card in Notion.
-2. Create/update corresponding spec in `docs/specs/`.
-3. Implement in code.
-4. Record test result in Notion QA Log.
-5. Update `docs/changelog.md`.
+1. Notion 요구사항 카드를 작성/수정합니다.
+2. `docs/specs/`의 대응 명세를 작성/수정합니다.
+3. 코드 구현을 진행합니다.
+4. Notion QA 로그에 테스트 결과를 기록합니다.
+5. `docs/changelog.md`를 업데이트합니다.
 
-## Merge rule
-Do not merge if one of below is missing:
-- spec update
-- QA result
-- changelog update
+## 머지 규칙
+아래 중 하나라도 없으면 머지하지 않습니다.
+- 명세 업데이트
+- QA 결과 기록
+- 변경 이력 업데이트
