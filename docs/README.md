@@ -24,6 +24,10 @@
 ## 품질 검수
 - `/Users/hansuk/Documents/MobileWedding/docs/quality/checklist.md`
 
+## 협업 템플릿
+- `/Users/hansuk/Documents/MobileWedding/.github/PULL_REQUEST_TEMPLATE.md`
+- `/Users/hansuk/Documents/MobileWedding/.github/PULL_REQUEST_TEMPLATE/release-to-master.md`
+
 ## Notion 연동
 - `/Users/hansuk/Documents/MobileWedding/docs/notion/template.md`
 - `/Users/hansuk/Documents/MobileWedding/docs/notion/workflow.md`

@@ -12,6 +12,7 @@
 3. PR 템플릿 체크리스트를 모두 채웁니다.
 4. 리뷰/테스트 통과 후 `dev`에 머지합니다.
 5. 배포 시점에만 `dev -> master` PR을 만들어 머지합니다.
+   - 릴리스 PR 템플릿: `/Users/hansuk/Documents/MobileWedding/.github/PULL_REQUEST_TEMPLATE/release-to-master.md`
 
 ## 빠른 명령어
 ```bash
