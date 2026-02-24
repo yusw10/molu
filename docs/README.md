@@ -7,6 +7,7 @@
 - `/Users/hansuk/Documents/MobileWedding/docs/changelog.md`
 - `/Users/hansuk/Documents/MobileWedding/docs/supabase-first-setup.md`
 - `/Users/hansuk/Documents/MobileWedding/docs/git-push-guide.md`
+- `/Users/hansuk/Documents/MobileWedding/docs/local-run-for-non-dev.md`
 
 ## Decisions (ADR)
 - `/Users/hansuk/Documents/MobileWedding/docs/decisions/ADR-001-stack-choice.md`
