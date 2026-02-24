@@ -31,6 +31,10 @@ const guestbook = reactive({
   submitting: false
 });
 
+const galleryStartIndex = ref(0);
+const viewerOpen = ref(false);
+const viewerIndex = ref(0);
+
 const formattedDate = computed(() => {
   const date = new Date(`${settings.wedding.date}T00:00:00`);
   if (Number.isNaN(date.getTime())) return settings.wedding.date;
@@ -46,11 +50,14 @@ const weddingTimeText = computed(() => settings.wedding.time || '13:00');
 const addressQuery = computed(() => encodeURIComponent(`${settings.wedding.address} ${settings.wedding.addressDetail}`.trim()));
 const naverMapUrl = computed(() => `https://map.naver.com/v5/search/${addressQuery.value}`);
 const kakaoMapUrl = computed(() => `https://map.kakao.com/link/search/${addressQuery.value}`);
-const invitationUrl = computed(() => settings.share.invitationUrl || window.location.origin);
+const naverMapEmbedUrl = computed(() => `https://map.naver.com/v5/search/${addressQuery.value}`);
+const invitationUrl = computed(() => settings.share.invitationUrl || window.location.href);
+
+const weddingDayNumber = computed(() => Number(settings.wedding.date.split('-')[2]) || 0);
 
 const calendarMatrix = computed(() => {
-  const [year, month, day] = settings.wedding.date.split('-').map((v) => Number(v));
-  if (!year || !month || !day) return [] as Array<Array<number | null>>;
+  const [year, month] = settings.wedding.date.split('-').map((v) => Number(v));
+  if (!year || !month) return [] as Array<Array<number | null>>;
 
   const firstDay = new Date(year, month - 1, 1).getDay();
   const daysInMonth = new Date(year, month, 0).getDate();
@@ -63,7 +70,26 @@ const calendarMatrix = computed(() => {
   return rows;
 });
 
-const galleryImages = computed(() => [settings.media.gallery1, settings.media.gallery2, settings.media.gallery3].filter(Boolean));
+const galleryImages = computed(() => settings.media.galleryImages.filter(Boolean));
+const visibleGalleryImages = computed(() => {
+  const list = galleryImages.value;
+  if (list.length === 0) return [] as string[];
+
+  const count = Math.min(3, list.length);
+  const visible: string[] = [];
+  for (let i = 0; i < count; i += 1) {
+    visible.push(list[(galleryStartIndex.value + i) % list.length]);
+  }
+  return visible;
+});
+
+const currentViewerImage = computed(() => {
+  const list = galleryImages.value;
+  if (!list.length) return '';
+  return list[((viewerIndex.value % list.length) + list.length) % list.length];
+});
+
+const gallerySlots = computed(() => Array.from({ length: 10 }, (_, i) => i));
 
 async function fetchSiteSettings() {
   const response = await fetch(`${apiBaseUrl}/api/v1/site-settings`);
@@ -148,11 +174,13 @@ async function unlockAdminPage() {
     statusText.value = '비밀번호를 입력해주세요.';
     return;
   }
+
   const ok = await verifyAdminPassword(adminPassword.value.trim());
   if (!ok) {
     statusText.value = adminConfigured.value ? '비밀번호가 일치하지 않습니다.' : '먼저 비밀번호를 설정해주세요.';
     return;
   }
+
   sessionStorage.setItem('admin_password', adminPassword.value.trim());
   adminVerified.value = true;
   statusText.value = '관리자 인증 완료';
@@ -173,6 +201,22 @@ function onFileChange(event: Event, path: string) {
   const reader = new FileReader();
   reader.onload = () => updateNested(path, String(reader.result ?? ''));
   reader.readAsDataURL(file);
+}
+
+function onGalleryFileChange(event: Event, index: number) {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    settings.media.galleryImages[index] = String(reader.result ?? '');
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearGalleryImage(index: number) {
+  settings.media.galleryImages[index] = '';
 }
 
 async function saveAdminSettings() {
@@ -196,6 +240,10 @@ async function saveAdminSettings() {
   }
 
   statusText.value = '저장되었습니다.';
+}
+
+function goInvitationWithRefresh() {
+  window.location.href = `/?refresh=${Date.now()}`;
 }
 
 async function submitGuestbook() {
@@ -253,6 +301,26 @@ async function copyInvitationLink() {
   window.alert('청첩장 링크를 복사했습니다.');
 }
 
+function moveGallery(step: number) {
+  const list = galleryImages.value;
+  if (!list.length) return;
+  const next = (galleryStartIndex.value + step + list.length) % list.length;
+  galleryStartIndex.value = next;
+}
+
+function openGalleryViewer(visibleIndex: number) {
+  const list = galleryImages.value;
+  if (!list.length) return;
+  viewerIndex.value = (galleryStartIndex.value + visibleIndex) % list.length;
+  viewerOpen.value = true;
+}
+
+function moveViewer(step: number) {
+  const list = galleryImages.value;
+  if (!list.length) return;
+  viewerIndex.value = (viewerIndex.value + step + list.length) % list.length;
+}
+
 onMounted(async () => {
   try {
     await fetchSiteSettings();
@@ -277,10 +345,12 @@ onMounted(async () => {
     <template v-if="!isAdminPage">
       <section class="hero" :style="settings.media.heroImage ? { backgroundImage: `url(${settings.media.heroImage})` } : {}">
         <div class="hero-overlay">
-          <p class="hero-label">Wedding Invitation</p>
-          <h1>{{ settings.couple.groom }} & {{ settings.couple.bride }}</h1>
-          <p>{{ formattedDate }} {{ weddingTimeText }}</p>
-          <p>{{ settings.wedding.venueName }}</p>
+          <div class="hero-chip">Wedding Invitation</div>
+          <h1>
+            <span class="hero-chip big">{{ settings.couple.groom }} & {{ settings.couple.bride }}</span>
+          </h1>
+          <p><span class="hero-chip">{{ formattedDate }} {{ weddingTimeText }}</span></p>
+          <p><span class="hero-chip">{{ settings.wedding.venueName }}</span></p>
         </div>
       </section>
 
@@ -326,7 +396,14 @@ onMounted(async () => {
           <tbody>
             <tr v-for="(week, index) in calendarMatrix" :key="index">
               <td v-for="(day, dayIndex) in week" :key="dayIndex">
-                <span v-if="day" :class="{ marked: day === Number(settings.wedding.date.split('-')[2]) }">{{ day }}</span>
+                <span v-if="day" :class="{ marked: day === weddingDayNumber }">
+                  <template v-if="day === weddingDayNumber">
+                    <span class="heart">♥</span>{{ day }}
+                  </template>
+                  <template v-else>
+                    {{ day }}
+                  </template>
+                </span>
               </td>
             </tr>
           </tbody>
@@ -335,7 +412,9 @@ onMounted(async () => {
 
       <section class="card">
         <h2>오시는 길</h2>
-        <img v-if="settings.media.venueImage" :src="settings.media.venueImage" alt="예식장 이미지" class="venue-image" />
+        <div class="map-wrap">
+          <iframe :src="naverMapEmbedUrl" title="네이버 지도" loading="lazy"></iframe>
+        </div>
         <p>{{ settings.wedding.venueName }}</p>
         <p>{{ settings.wedding.address }}</p>
         <p>{{ settings.wedding.addressDetail }}</p>
@@ -347,9 +426,16 @@ onMounted(async () => {
 
       <section class="card">
         <h2>갤러리</h2>
-        <div class="gallery-grid">
-          <img v-for="(img, idx) in galleryImages" :src="img" :key="idx" :alt="`갤러리 ${idx + 1}`" />
+        <div class="gallery-controls" v-if="galleryImages.length > 1">
+          <button type="button" @click="moveGallery(-1)">이전</button>
+          <button type="button" @click="moveGallery(1)">다음</button>
         </div>
+        <div class="gallery-grid" v-if="galleryImages.length">
+          <button class="gallery-item" type="button" v-for="(img, idx) in visibleGalleryImages" :key="`${img}-${idx}`" @click="openGalleryViewer(idx)">
+            <img :src="img" :alt="`갤러리 ${idx + 1}`" />
+          </button>
+        </div>
+        <p class="small" v-else>등록된 갤러리 이미지가 없습니다.</p>
       </section>
 
       <section class="card" v-if="settings.media.videoUrl">
@@ -412,6 +498,13 @@ onMounted(async () => {
       <section class="admin-entry">
         <button type="button" @click="openAdminFromInvitation">관리자 페이지</button>
       </section>
+
+      <div class="modal" v-if="viewerOpen" @click.self="viewerOpen = false">
+        <button class="modal-close" @click="viewerOpen = false" type="button">닫기</button>
+        <button class="modal-nav left" @click="moveViewer(-1)" type="button">‹</button>
+        <img class="modal-image" :src="currentViewerImage" alt="확대 이미지" />
+        <button class="modal-nav right" @click="moveViewer(1)" type="button">›</button>
+      </div>
     </template>
 
     <template v-else>
@@ -431,7 +524,11 @@ onMounted(async () => {
 
       <section class="card admin-card" v-else>
         <h2>관리자 페이지</h2>
-        <p class="small">하단 항목 저장 시 즉시 모바일 청첩장 화면에 반영됩니다.</p>
+        <p class="small">저장하면 모바일 청첩장에 즉시 반영됩니다.</p>
+        <div class="button-row admin-top-actions">
+          <button type="button" @click="saveAdminSettings">설정 저장</button>
+          <button type="button" @click="goInvitationWithRefresh">청첩장으로 돌아가기</button>
+        </div>
 
         <h3>기본 정보</h3>
         <div class="form-grid">
@@ -467,10 +564,20 @@ onMounted(async () => {
         <div class="form-grid">
           <label>메인 첫 화면 이미지<input type="file" accept="image/*" @change="onFileChange($event, 'media.heroImage')" /></label>
           <label>부부 소개 이미지<input type="file" accept="image/*" @change="onFileChange($event, 'media.coupleImage')" /></label>
-          <label>예식장 소개 이미지<input type="file" accept="image/*" @change="onFileChange($event, 'media.venueImage')" /></label>
-          <label>갤러리 이미지 1<input type="file" accept="image/*" @change="onFileChange($event, 'media.gallery1')" /></label>
-          <label>갤러리 이미지 2<input type="file" accept="image/*" @change="onFileChange($event, 'media.gallery2')" /></label>
-          <label>갤러리 이미지 3<input type="file" accept="image/*" @change="onFileChange($event, 'media.gallery3')" /></label>
+          <label>예식장 소개 이미지(옵션)<input type="file" accept="image/*" @change="onFileChange($event, 'media.venueImage')" /></label>
+
+          <div class="gallery-admin-grid">
+            <div class="gallery-slot" v-for="slot in gallerySlots" :key="slot">
+              <label>갤러리 {{ slot + 1 }}
+                <input type="file" accept="image/*" @change="onGalleryFileChange($event, slot)" />
+              </label>
+              <div class="slot-actions">
+                <small>{{ settings.media.galleryImages[slot] ? '등록됨' : '비어있음' }}</small>
+                <button type="button" @click="clearGalleryImage(slot)">지우기</button>
+              </div>
+            </div>
+          </div>
+
           <input :value="settings.media.videoUrl" @input="updateNested('media.videoUrl', ($event.target as HTMLInputElement).value)" placeholder="영상 URL (YouTube embed 등)" />
         </div>
 

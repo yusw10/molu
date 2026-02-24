@@ -27,9 +27,7 @@ export type SiteSettings = {
     heroImage: string;
     coupleImage: string;
     venueImage: string;
-    gallery1: string;
-    gallery2: string;
-    gallery3: string;
+    galleryImages: string[];
     videoUrl: string;
   };
   share: {
@@ -73,9 +71,7 @@ export const defaultSettings: SiteSettings = {
     heroImage: '',
     coupleImage: '',
     venueImage: '',
-    gallery1: '',
-    gallery2: '',
-    gallery3: '',
+    galleryImages: Array.from({ length: 10 }, () => ''),
     videoUrl: ''
   },
   share: {
@@ -89,19 +85,45 @@ export const defaultSettings: SiteSettings = {
   }
 };
 
+function normalizeGalleryArray(input: unknown): string[] {
+  const base = Array.from({ length: 10 }, () => '');
+  if (Array.isArray(input)) {
+    for (let i = 0; i < Math.min(10, input.length); i += 1) {
+      base[i] = typeof input[i] === 'string' ? input[i] : '';
+    }
+  }
+  return base;
+}
+
 export function normalizeSettings(raw: unknown): SiteSettings {
   if (!raw || typeof raw !== 'object') {
     return structuredClone(defaultSettings);
   }
 
   const input = raw as Record<string, any>;
+  const legacyGallery = [
+    input?.media?.gallery1,
+    input?.media?.gallery2,
+    input?.media?.gallery3
+  ].filter((item: unknown) => typeof item === 'string');
+
+  const galleryImages = normalizeGalleryArray(
+    input?.media?.galleryImages && Array.isArray(input.media.galleryImages)
+      ? input.media.galleryImages
+      : legacyGallery
+  );
+
   return {
     greeting: input.greeting ?? defaultSettings.greeting,
     wedding: { ...defaultSettings.wedding, ...(input.wedding ?? {}) },
     couple: { ...defaultSettings.couple, ...(input.couple ?? {}) },
     contact: { ...defaultSettings.contact, ...(input.contact ?? {}) },
     accounts: { ...defaultSettings.accounts, ...(input.accounts ?? {}) },
-    media: { ...defaultSettings.media, ...(input.media ?? {}) },
+    media: {
+      ...defaultSettings.media,
+      ...(input.media ?? {}),
+      galleryImages
+    },
     share: { ...defaultSettings.share, ...(input.share ?? {}) },
     story: { ...defaultSettings.story, ...(input.story ?? {}) }
   };
