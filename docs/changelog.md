@@ -11,3 +11,4 @@
 - Added backend tests for guestbook controller and repository.
 - Added non-developer local run guide.
 - Switched API run/build docs to Gradle Wrapper flow.
+- Added fixed git flow policy and reusable spec/issue/PR templates.

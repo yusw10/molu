@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project Documentation
+    url: https://github.com/yusw10/molu/tree/master/docs
+    about: 문서 확인 후 이슈를 생성해주세요.

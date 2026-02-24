@@ -8,6 +8,7 @@
 - `/Users/hansuk/Documents/MobileWedding/docs/supabase-first-setup.md`
 - `/Users/hansuk/Documents/MobileWedding/docs/git-push-guide.md`
 - `/Users/hansuk/Documents/MobileWedding/docs/local-run-for-non-dev.md`
+- `/Users/hansuk/Documents/MobileWedding/docs/git-branch-policy.md`
 
 ## Decisions (ADR)
 - `/Users/hansuk/Documents/MobileWedding/docs/decisions/ADR-001-stack-choice.md`
@@ -18,6 +19,7 @@
 
 ## Specs
 - `/Users/hansuk/Documents/MobileWedding/docs/specs/spec-guestbook.md`
+- `/Users/hansuk/Documents/MobileWedding/docs/templates/spec-template.md`
 
 ## Quality
 - `/Users/hansuk/Documents/MobileWedding/docs/quality/checklist.md`
