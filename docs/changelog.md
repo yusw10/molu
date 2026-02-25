@@ -1,8 +1,23 @@
-# Changelog
+# 변경 이력
 
 ## 2026-02-23
-- Initialized documentation-first project structure.
-- Added Vue + Spring + Supabase architecture docs.
-- Added theme color documentation and CSS tokens.
-- Added guestbook spec, SQL schema, and starter app scaffolds.
-- Added first-time Supabase setup guide and GitHub push guide.
+- 문서 우선 프로젝트 구조 초기화
+- Vue + Spring + Supabase 아키텍처 문서 추가
+- 색상 테마 문서 및 CSS 토큰 적용
+- 방명록 명세, SQL 스키마, 앱 스캐폴드 추가
+- Supabase 최초 설정 가이드 및 GitHub 푸시 가이드 추가
+
+## 2026-02-24
+- 방명록 컨트롤러/리포지토리 백엔드 테스트 추가
+- 비개발자용 로컬 실행 가이드 추가
+- API 실행/빌드 문서를 Gradle Wrapper 기준으로 정리
+- 고정 브랜치 정책 및 PR/이슈/명세 템플릿 추가
+- `dev -> master` 전용 릴리스 PR 템플릿 추가
+- 관리자 페이지(`/admin`) 및 사이트 설정 API/DB 스키마 추가
+- 청첩장 섹션 확장(지도 버튼, 부모님 소개, 계좌, 달력, 공유/링크, 영상, 스토리)
+- 색상 팔레트와 웹폰트를 파스텔 톤 기준으로 전면 개편
+- 메인 히어로 텍스트 배경칩 적용으로 가독성 개선
+- 달력 예식일 하트 강조 스타일 추가
+- 오시는 길 섹션을 네이버 지도 임베드 중심으로 변경
+- 갤러리 10장 지원(3장 표시/클릭 확대/좌우 무한 순환)
+- 관리자 페이지에 \"청첩장으로 돌아가기(새로고침)\" 버튼 추가

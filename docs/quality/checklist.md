@@ -1,21 +1,21 @@
-# Quality Checklist
+# 품질 체크리스트
 
 ## UI
-- [ ] iPhone Safari layout checks
-- [ ] Android Chrome layout checks
-- [ ] No horizontal scroll
-- [ ] Font sizes readable on small screens
+- [ ] iPhone Safari 레이아웃 확인
+- [ ] Android Chrome 레이아웃 확인
+- [ ] 가로 스크롤 없음
+- [ ] 작은 화면에서 가독성 확보
 
-## Function
-- [ ] Guestbook submit success
-- [ ] Guestbook submit failure handling
-- [ ] Guestbook list load success
+## 기능
+- [ ] 방명록 등록 성공 확인
+- [ ] 방명록 등록 실패 처리 확인
+- [ ] 방명록 조회 성공 확인
 
-## Data
-- [ ] SQL migration applied
-- [ ] DB connection env validated
+## 데이터
+- [ ] SQL 마이그레이션 적용 확인
+- [ ] DB 연결 환경 변수 검증
 
-## Documentation
-- [ ] Spec updated
-- [ ] ADR updated if architecture changed
-- [ ] Changelog updated
+## 문서
+- [ ] 명세 문서 업데이트
+- [ ] 아키텍처 변경 시 ADR 업데이트
+- [ ] 변경 이력 업데이트

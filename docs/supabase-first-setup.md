@@ -1,52 +1,52 @@
-# Supabase First Setup (Beginner Guide)
+# Supabase 최초 설정 가이드 (초보자용)
 
-This guide is written for first-time Supabase users.
+Supabase를 처음 사용하는 기준으로 작성했습니다.
 
-## 0) What you will prepare
-- Email login for Supabase
-- Project name (example: `mobile-wedding`)
-- Strong DB password
+## 0) 준비물
+- Supabase 로그인 계정
+- 프로젝트 이름 (예: `mobile-wedding`)
+- 강한 DB 비밀번호
 
-## 1) Create Supabase project
-1. Open Supabase dashboard and sign in.
-2. Click `New project`.
-3. Choose organization.
-4. Set:
+## 1) Supabase 프로젝트 생성
+1. Supabase 대시보드 로그인
+2. `New project` 클릭
+3. 조직 선택
+4. 아래 값 입력
    - Name: `mobile-wedding`
-   - Database Password: create and save in password manager
-   - Region: closest to Korea (or your primary users)
-5. Click `Create new project` and wait until ready.
+   - Database Password: 저장해둘 비밀번호
+   - Region: 주요 사용자와 가까운 리전
+5. `Create new project` 클릭 후 생성 완료까지 대기
 
-## 2) Create table (guestbook)
-1. Open SQL Editor.
-2. Create `New query`.
-3. Paste SQL from:
+## 2) 테이블 생성 (필수)
+1. `SQL Editor` 이동
+2. `New query` 생성
+3. 아래 파일 SQL을 순서대로 실행
    - `/Users/hansuk/Documents/MobileWedding/supabase/sql/001_guestbook_entries.sql`
-4. Click `Run`.
-5. Confirm table exists in `Table Editor` as `guestbook_entries`.
+   - `/Users/hansuk/Documents/MobileWedding/supabase/sql/002_site_settings.sql`
+4. 각 SQL마다 `Run` 실행
+5. `Table Editor`에서 `guestbook_entries`, `site_settings` 생성 확인
 
-## 3) Get DB connection info for Spring
-1. In Supabase dashboard, go to `Project Settings` -> `Database`.
-2. Find `Connection string`.
-3. Prefer the `Pooler` host for JDBC connection (recommended).
-4. Keep values:
-   - Pooler host (`aws-0-<region>.pooler.supabase.com`)
+## 3) Spring용 DB 연결 정보 확인
+1. `Project Settings -> Database` 이동
+2. `Connection string` 확인
+3. JDBC는 `Pooler` 호스트를 우선 사용
+4. 아래 값을 기록
+   - Pooler host (`aws-0-<region>.pooler.supabase.com` 형태)
    - Port (`5432`)
-   - Database name (`postgres`)
+   - Database (`postgres`)
    - User (`postgres.<project-ref>`)
-   - Password (the one you created)
+   - Password (직접 설정한 값)
 
-## 4) Configure backend env file
-1. Create env file from sample:
-   - copy `/Users/hansuk/Documents/MobileWedding/apps/api/.env.example`
-   - to `/Users/hansuk/Documents/MobileWedding/apps/api/.env`
-2. Fill exact values:
+## 4) 백엔드 env 파일 설정
+1. 샘플 파일 복사
+   - `/Users/hansuk/Documents/MobileWedding/apps/api/.env.example`
+   - `/Users/hansuk/Documents/MobileWedding/apps/api/.env`
+2. 값 입력
    - `SPRING_DATASOURCE_URL=jdbc:postgresql://aws-0-<region>.pooler.supabase.com:5432/postgres?sslmode=require`
    - `SPRING_DATASOURCE_USERNAME=postgres.<project-ref>`
    - `SPRING_DATASOURCE_PASSWORD=<db-password>`
 
-## 5) Run backend with env loaded
-In terminal:
+## 5) 백엔드 실행
 ```bash
 cd /Users/hansuk/Documents/MobileWedding/apps/api
 export JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
@@ -57,12 +57,11 @@ set +a
 ./gradlew bootRun
 ```
 
-Success condition:
-- No DB authentication error
-- Server starts on `http://localhost:8080`
+성공 기준:
+- DB 인증 오류 없음
+- 서버가 `http://localhost:8080`에서 실행됨
 
-## 6) Run frontend
-In another terminal:
+## 6) 프론트 실행
 ```bash
 cd /Users/hansuk/Documents/MobileWedding/apps/web
 cp .env.example .env
@@ -70,11 +69,11 @@ npm install
 npm run dev
 ```
 
-Open shown local URL and test form submit.
+표시되는 로컬 URL로 접속해 폼 전송 테스트
 
-## 7) Troubleshooting
-- If DB SSL error: ensure URL includes `?sslmode=require`.
-- If auth failed: verify DB password in `/Users/hansuk/Documents/MobileWedding/apps/api/.env`.
-- If `No route to host` on `db.<project-ref>.supabase.co`, switch to Pooler host and user `postgres.<project-ref>`.
-- If CORS issue: ensure frontend uses `VITE_API_BASE_URL=http://localhost:8080`.
-- If table missing: rerun SQL migration in Supabase SQL Editor.
+## 7) 자주 발생하는 오류
+- DB SSL 오류: URL에 `?sslmode=require` 포함 여부 확인
+- 인증 실패: `apps/api/.env` 비밀번호 재확인
+- `db.<project-ref>.supabase.co`에서 `No route to host`: Pooler 호스트로 변경
+- CORS 문제: `VITE_API_BASE_URL=http://localhost:8080` 확인
+- 테이블 없음: SQL 마이그레이션 재실행

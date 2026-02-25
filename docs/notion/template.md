@@ -1,42 +1,42 @@
-# Notion Template (copy and use)
+# Notion 템플릿 (복사해서 사용)
 
-## 1) Project Home
-- Goal
-- Timeline
-- Current milestone
-- Links to Git docs
+## 1) 프로젝트 홈
+- 목표
+- 일정
+- 현재 마일스톤
+- Git 문서 링크
 
-## 2) Requirements
-Columns:
+## 2) 요구사항
+권장 컬럼:
 - ID
-- Feature
-- Must/Should/Could
-- Description
-- Acceptance criteria
-- Status
+- 기능명
+- 우선순위 (Must/Should/Could)
+- 설명
+- 완료 기준
+- 상태
 
-## 3) Content Source
-- Greeting final text
-- Date/time/place final text
-- Family/contact text
-- Account info
-- Gallery source list
+## 3) 콘텐츠 원본
+- 인삿말 확정본
+- 날짜/시간/장소 확정본
+- 가족/연락처 문구
+- 계좌 정보
+- 갤러리 원본 목록
 
-## 4) Sprint Board
-Columns:
+## 4) 스프린트 보드
+컬럼:
 - Backlog
 - In Progress
 - Review
 - Done
 
-Each card should include:
-- linked git branch
-- linked spec file path
-- checklist
+카드 필수 항목:
+- 연결된 git 브랜치
+- 연결된 spec 파일 경로
+- 체크리스트
 
-## 5) QA Log
-- device
-- browser
-- issue summary
-- screenshot link
-- result
+## 5) QA 로그
+- 기기
+- 브라우저
+- 이슈 요약
+- 스크린샷 링크
+- 결과
